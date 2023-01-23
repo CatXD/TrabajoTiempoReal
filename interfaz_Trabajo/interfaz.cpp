@@ -7,13 +7,13 @@
 using   namespace std;
 
 //MODIFICABLE
-Interfaz::Interfaz(uint8_t modo, QWidget *parent) : QMainWindow (parent),
+Interfaz::Interfaz(uint8_t modo, QWidget *parent, ControladorMotor *ctrl): QMainWindow (parent),
     ui(new Ui::Interfaz),
     modo_control_(modo)
 {
-
     ui->setupUi(this);
-    modo_control_ = MODO_CONTROL_VEL;
+    //modo_control_ = MODO_CONTROL_VEL;
+    controlador = ctrl;
 
     setEnabledControlVel(true);
     setEnabledControlPos(false);
@@ -196,16 +196,15 @@ void Interfaz::on_botonSetReferencia_clicked()  //A  RELLENAR
 
 void Interfaz::on_botonSetParametros_clicked()   //A RELLENAR
 {
-    double Kp, Ki, Kd;
     if (modo_control_ == MODO_CONTROL_VEL ) {
-        Kp = ui->sbCVelocidadKp->value();
-        Ki = ui->sbCVelocidadKi->value();
-        Kd = ui->sbCVelocidadKd->value();
+        controlador->reg_vel.set_KP(ui->sbCVelocidadKp->value());
+        controlador->reg_vel.set_KI(ui->sbCVelocidadKi->value());
+        controlador->reg_vel.set_KD(ui->sbCVelocidadKd->value());
     }
     else {
-        Kp = ui->sbCPosicionKp->value();
-        Ki = ui->sbCPosicionKi->value();
-        Kd = ui->sbCPosicionKd->value();
+        controlador->reg_pos.set_KP(ui->sbCPosicionKp->value());
+        controlador->reg_pos.set_KI(ui->sbCPosicionKi->value());
+        controlador->reg_pos.set_KD(ui->sbCPosicionKd->value());
     }
 }
 

@@ -15,10 +15,6 @@
 #define LED 3
 
 
-//NECESITAREMOS 2 INSTANCIAS DEL REGULADOR reg_pos, reg_vel
-Regulador reg_pos(CONTROL_POSKP,CONTROL_POSKI,CONTROL_POSKD,Tms);
-Regulador reg_vel(CONTROL_VELKP,CONTROL_VELKI,CONTROL_VELKD,Tms);
-
 class SM_trabajo : public QObject
 {
     Q_OBJECT

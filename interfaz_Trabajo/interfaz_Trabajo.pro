@@ -19,12 +19,16 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    controladormotor.cpp \
+    evento_externo.cpp \
         main.cpp \
     interfaz.cpp \
     regulador.cpp \
     sm_trabajo.cpp
 
 HEADERS += \
+    controladormotor.h \
+    evento_externo.h \
     interfaz.h \
     regulador.h \
     sm_trabajo.h \

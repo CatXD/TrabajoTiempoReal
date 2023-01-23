@@ -11,8 +11,8 @@
 #include <QCloseEvent>
 #include <stdint.h>
 #include <QtCharts>
-#include "valores_iniciales.h"
-#include "regulador.h"
+#include "controladormotor.h"
+
 
 namespace Ui {
 class Interfaz;
@@ -21,12 +21,15 @@ class Interfaz;
 class Interfaz : public QMainWindow
 {
     Q_OBJECT
+    ControladorMotor *controlador = nullptr;
 
 public:
-    explicit Interfaz(uint8_t modo=MODO_CONTROL_VEL, QWidget *parent = nullptr);
+    explicit Interfaz(uint8_t modo=MODO_CONTROL_VEL, QWidget *parent = nullptr, ControladorMotor *ctrl = nullptr);
+    //explicit Interfaz(uint8_t modo=MODO_CONTROL_VEL, QWidget *parent = nullptr);
     ~Interfaz();
     int getModoControl();
     Ui::Interfaz *ui;
+    ControladorMotor * getControlMotor(){return controlador;};
 
 public slots:
     void muestraDatoSlot(double t, double ref,  double y);

@@ -4,9 +4,13 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <iostream>
+#include "valores_iniciales.h"
 using namespace  std;
 
+
+
 typedef enum {sierra, cuadrada} control;
+
 
 double t=0.0;
 double y=0.0;
@@ -71,8 +75,11 @@ void *dibujar(void *param)
 
 int main(int argc, char *argv[])
 {
+    ControladorMotor controlador;
     QApplication a(argc, argv);
-    Interfaz w;
+    Interfaz w(MODO_CONTROL_VEL,  nullptr, &controlador);
+    SM_trabajo machine(&w,nullptr);
+    //machine.
     w.show();
     pthread_t hiloSierra, hiloCuadrada, hiloDibujar;
     pthread_create(&hiloSierra, nullptr, generaSierra, static_cast <void *> ( &w));

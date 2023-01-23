@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 9.0.0, 2023-01-20T11:51:34. -->
+<!-- Written by QtCreator 9.0.0, 2023-01-23T17:48:54. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -236,8 +236,9 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/media/sf_Tiempo_Real_Compartido/TiempoReal/AVANZADOS/Trabajo/Trabajo_TR/interfaz_Trabajo/interfaz_Trabajo.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/media/sf_Tiempo_Real_Compartido/TiempoReal/AVANZADOS/Trabajo/Trabajo_TR/interfaz_Trabajo/interfaz_Trabajo.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">interfaz_Trabajo2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/media/sf_Tiempo_Real_Compartido/TiempoReal/AVANZADOS/Trabajo/TrabajoTiempoReal/interfaz_Trabajo/interfaz_Trabajo.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">/media/sf_Tiempo_Real_Compartido/TiempoReal/AVANZADOS/Trabajo/TrabajoTiempoReal/interfaz_Trabajo/interfaz_Trabajo.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
