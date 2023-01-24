@@ -22,8 +22,20 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     OFF->addTransition(w->ui->botonReanudar,SIGNAL(clicked()),ON);
     ON->addTransition(w->ui->botonFinalizar,SIGNAL(clicked()),Estado_Final);
     OFF->addTransition(w->ui->botonFinalizar,SIGNAL(clicked()),Estado_Final);
-    Control_Pos->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),ControlVel);
+    Control_Pos->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),Control_Vel);
     Control_Vel->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),Control_Pos);
+    //faltan los eventos de la interfaz
+
+    connect(Control_Pos,SIGNAL(entered()),this,SLOT(FuncionControlPos()));
+    connect(Control_Vel,SIGNAL(entered()),this,SLOT(FuncionControlVel()));
+    //esto creo que lo podríamos hacer en la ISR del main
+    //*****
+    //connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
+    //connect(Estado_Final,SIGNAL(entered()),this,SLOT(ApagarPinesRPI()));
+    //*****
+    MachineControl->setInitialState(ON);
+    ON->setInitialState(Control_Vel);
+    MachineControl->start();
 
 
     //ON->addTransition()

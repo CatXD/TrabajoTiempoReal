@@ -10,6 +10,9 @@ class Regulador
     double KI;            //accion integral
     double KD;            //accion diferencial
     int T;                //periodo de muestreo
+    double ref;
+    double pos;
+    double vel;
     pthread_mutex_t mutex;//creado para garantizar la exclusion mutua de la pantalla accediendo a KP
 public:
     Regulador(double KP, double KI, double KD, int T);
@@ -22,6 +25,13 @@ public:
     double get_KD(void);
     void set_T(int T);
     int get_T(void);
+
+    void set_ref(double ref);
+    double get_ref(void);
+    void set_pos(double pos);
+    double get_pos(void);
+    void set_vel(double vel);
+    double get_vel(void);
 };
 
 #endif // REGULADOR_H

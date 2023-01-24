@@ -191,6 +191,12 @@ void Interfaz::on_botonReanudar_clicked()  //A  RELLENAR
 
 void Interfaz::on_botonSetReferencia_clicked()  //A  RELLENAR
 {
+    if (modo_control_ == MODO_CONTROL_VEL ) {
+        controlador->reg_vel.set_ref(ui->dialRefVelPos->value());
+    }
+    else {
+        controlador->reg_pos.set_ref(ui->dialRefVelPos->value());
+    }
 
 }
 
