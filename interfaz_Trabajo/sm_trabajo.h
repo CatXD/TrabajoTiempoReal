@@ -2,10 +2,12 @@
 #define SM_TRABAJO_H
 
 #include "interfaz.h"
+#include "ui_interfaz.h"
 #include  <QObject>
 #include <QStateMachine>
 #include <QHistoryState>
 #include <QFinalState>
+#include <time.h>
 //#include <QEvent>
 //#include <wiringPi.h>
 
@@ -25,20 +27,18 @@ private:
     QStateMachine *MachineControl;
     QState *ON;
     QState *Control_Pos;
-    QState *ControlVel;
+    QState *Control_Vel;
     QState *OFF;
     QHistoryState *ONh;
     QFinalState *Estado_Final;
 
+public:
+    void suma(struct timespec&, struct timespec&);
+
 public slots:
-    /*void s11Entrar();
-    void s11Salir();
-    void s12Entrar();
-    void s12Salir();
-    void s13Entrar();
-    void s13Salir();
-    void s2Entrar();
-    void s2Salir();*/
+    /*void ControlPosicion();
+    void ControlVelocidad();
+    void ControlParado();*/
 };
 
 
