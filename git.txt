@@ -1,0 +1,8 @@
+1. $ eval "$(ssh-agent -s)"
+(1.5 ssh-add ~/.ssh/<nombreClave>)
+2. git pull
+3. git add -a
+4. git commit 
+5. Meter resumen cambios
+6. git push
+7. Meter contraseña
