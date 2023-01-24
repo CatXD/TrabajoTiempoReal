@@ -1,0 +1,25 @@
+-165	4.87	917
+-150	4.63	875
+-135	4.41	815
+-120	4.18	794
+-105	3.97	746
+-90	3.75	694
+-75	3.54	669
+-60	3.31	629
+-45	3.09	586
+-30	2.87	541
+-15	2.64	495
+0	2.41	437
+15	2.17	418
+30	1.94	366
+45	1.72	331
+60	1.49	273
+75	1.25	228
+90	1.03	178
+105	0.8	148
+120	0.57	94
+135	0.33	45
+150	0.11	18
+Rectas de ajuste  Grados-Tensión Tension-ADC para el potenciometro de referencia 
+Pendiente de la recta grados volts -0.0150958 punto de corte con el eje y 2.39042
+Pendiente de la recta voltios bits 190.236 punto de corte con el eje y -8.23628

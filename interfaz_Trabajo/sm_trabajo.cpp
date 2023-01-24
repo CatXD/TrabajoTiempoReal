@@ -18,7 +18,7 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
 
     //transicciones
     //QEventTransition *enterTransition = new QEventTransition(button, QEvent::Enter);
-    ON->addTransition(w->ui->botonParar,SIGNAL(clicked()),OFF);
+    ON->addTransition(w->ui->,SIGNAL(clicked()),OFF);
     //OFF->addTransition(w->ui->botonParar,SIGNAL(clicked()),ON);
     //ON->addTransition()
 

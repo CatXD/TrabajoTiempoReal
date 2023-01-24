@@ -1,0 +1,40 @@
+Grados   V      Valor Conversion   
+-180	5.11	983
+-170	5.05	965
+-160	4.9	937
+-150	4.75	910
+-140	4.61	885
+-130	4.46	855
+-120	4.32	826
+-110	4.16	801
+-100	4.02	767
+-90	3.87	749
+-80	3.73	715
+-70	3.57	682
+-60	3.43	655
+-50	3.28	631
+-40	3.13	602
+-30	2.99	582
+-20	2.85	538
+-10	2.7	518
+0	2.56	492
+10	2.41	470
+20	2.27	437
+30	2.13	410
+40	1.99	385
+50	1.84	357
+60	1.69	324
+70	1.54	294
+80	1.38	274
+90	1.22	242
+100	1.06	202
+110	0.89	175
+120	0.72	139
+130	0.55	102
+140	0.37	74
+150	0.2	39
+160	0.06	13
+170	0	0
+Rectas de ajuste  Grados-Tensión Tension-ADC para el potenciometro de referencia 
+Pendiente de la recta grados volts -0.0141474 punto de corte con el eje y 2.5351
+Pendiente de la recta voltios bits 193.401 punto de corte con el eje y -3.13786
