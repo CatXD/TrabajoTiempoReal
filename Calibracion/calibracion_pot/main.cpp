@@ -41,7 +41,7 @@ int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
     return ( (buffer[1] & 3 ) << 8 ) + buffer[2]; // get last 10 bits
 }
 
-int main1()
+int main()
 {
     int pos, ref;
     string vacio;
@@ -57,7 +57,7 @@ int main1()
     cin >> vacio;
     cout <<endl<< "PosPot, Ref"<<endl;
 
-    for (pos = -10; pos >= 10; pwm += 10)
+    for (pos = -11; pos <= 10; pos ++)
     {
 
         ref = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);

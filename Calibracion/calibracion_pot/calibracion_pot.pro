@@ -5,3 +5,6 @@ CONFIG -= qt
 LIBS += -lwiringPi
 SOURCES += \
         main.cpp
+
+DISTFILES += \
+    datos_cal-pot
