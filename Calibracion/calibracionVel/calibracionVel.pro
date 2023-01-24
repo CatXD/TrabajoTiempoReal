@@ -6,3 +6,6 @@ CONFIG -= qt
 SOURCES += \
         main.cpp
 LIBS += -lwiringPi
+
+DISTFILES += \
+    datos_calibracion_vel

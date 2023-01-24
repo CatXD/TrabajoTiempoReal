@@ -19,7 +19,7 @@ using namespace std;
 #define ANALCHANNEL_REF      0
 #define ANALCHANNEL_POT      1
 #define ANALCHANNEL_VEL      2
-
+static int spifd ;
 
 void spiSetup (int spiChannel)
 {
@@ -41,42 +41,91 @@ int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
     return ( (buffer[1] & 3 ) << 8 ) + buffer[2]; // get last 10 bits
 }
 
-
-
-int main()
+int main1()
 {
+    int pwm;
     int vel;
     string rpm;
+   int led_estado = 1;
     wiringPiSetup();
     spiSetup(SPICHANNEL);
     pinMode(PWM,PWM_OUTPUT);
-
+    pinMode (LED, OUTPUT);
     pwmWrite(PWM,0);
-
+    digitalWrite(LED, led_estado);
     cout << "PWM, VEL_AN, LCD_RPM"<<endl;
 
-    for (int pwm = 0; pwm > 1024; pwm += 10)
+    pwm = 1023;
+    pwmWrite(PWM,pwm);
+    cout << pwm<< ", ";
+    delay (3000);
+    vel = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
+    cout << vel <<",";
+    cin >> rpm;
+
+    for (pwm = 1000; pwm >= 0; pwm -= 25)
     {
         pwmWrite(PWM,pwm);
         cout << pwm<< ", ";
-        delay (1000);
+        delay (3000);
         vel = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
 
         cout << vel <<",";
 
         cin >> rpm;
-        cout << rpm<<endl;
+
+        led_estado = !led_estado;
+        digitalWrite(LED, led_estado);
+    }
+
+
+
+
+    cout << "FIN"<<endl;
+    cin>>rpm;
+
+    return 0;
+}
+
+int main()
+{
+    int pwm;
+    int vel;
+    string rpm;
+   int led_estado = 1;
+    wiringPiSetup();
+    spiSetup(SPICHANNEL);
+    pinMode(PWM,PWM_OUTPUT);
+    pinMode (LED, OUTPUT);
+    pwmWrite(PWM,0);
+    digitalWrite(LED, led_estado);
+    cout << "PWM, VEL_AN, LCD_RPM"<<endl;
+
+    for (pwm = 0; pwm < 1024; pwm += 25)
+    {
+        pwmWrite(PWM,pwm);
+        cout << pwm<< ", ";
+        delay (3000);
+        vel = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
+
+        cout << vel <<",";
+
+        cin >> rpm;
+
+        led_estado = !led_estado;
+        digitalWrite(LED, led_estado);
     }
 
     pwm = 1023;
     pwmWrite(PWM,pwm);
     cout << pwm<< ", ";
-    delay (1000);
-    vel = analogread();
+    delay (3000);
+    vel = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
     cout << vel <<",";
 
     cin >> rpm;
-    cout << rpm<<endl;
+    cout << "FIN"<<endl;
+    cin>>rpm;
 
     return 0;
 }
