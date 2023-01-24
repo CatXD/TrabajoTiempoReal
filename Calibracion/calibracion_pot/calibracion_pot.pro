@@ -7,4 +7,4 @@ SOURCES += \
         main.cpp
 
 DISTFILES += \
-    datos_cal-pot
+    datos_cal-pot.txt

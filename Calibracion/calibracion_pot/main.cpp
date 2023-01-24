@@ -49,18 +49,21 @@ int main()
     wiringPiSetup();
     spiSetup(SPICHANNEL);
 
+    pinMode (PWM, PWM_OUTPUT);
+
     pinMode (LED, OUTPUT);
 
+    pwmWrite(PWM, 1024/2);
     digitalWrite(LED, led_estado);
 
     cout << "Empezar. "<<endl;
     cin >> vacio;
     cout <<endl<< "PosPot, Ref"<<endl;
 
-    for (pos = -11; pos <= 10; pos ++)
+    for (pos = -10; pos <= 11; pos ++)
     {
 
-        ref = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
+        ref = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
 
         cout << pos <<","<<ref;
 
