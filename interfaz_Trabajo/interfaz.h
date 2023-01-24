@@ -69,6 +69,7 @@ private slots:
     void on_toggleModoControl_clicked();
     void on_dialVelocidad_valueChanged(int value);
     void on_dialPosicion_valueChanged(int value);
+    void on_bSetPeriodo_clicked();
 };
 
 #endif // INTERFAZ_H

@@ -22,6 +22,7 @@ class SM_trabajo : public QObject
     Q_OBJECT
 public:
     Interfaz *w;
+    ControladorMotor *motor;
     SM_trabajo (Interfaz *w,QObject *parent=nullptr);
 private:
     QStateMachine *MachineControl;
@@ -36,9 +37,9 @@ public:
     void suma(struct timespec&, struct timespec&);
 
 public slots:
-    /*void ControlPosicion();
-    void ControlVelocidad();
-    void ControlParado();*/
+    void FuncionControlPos();
+    void FuncionControlVel();
+    //void ControlParado();
 };
 
 

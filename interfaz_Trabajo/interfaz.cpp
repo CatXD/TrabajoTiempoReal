@@ -197,7 +197,6 @@ void Interfaz::on_botonSetReferencia_clicked()  //A  RELLENAR
     else {
         controlador->reg_pos.set_ref(ui->dialRefVelPos->value());
     }
-
 }
 
 void Interfaz::on_botonSetParametros_clicked()   //A RELLENAR
@@ -242,3 +241,15 @@ void Interfaz::on_dialPosicion_valueChanged(int value)
 {
        ui->labelValuePos->setNum(value);
 }
+
+//para actualizar el periodo --> SLOT adiccional
+void Interfaz::on_bSetPeriodo_clicked()
+{
+    if (modo_control_ == MODO_CONTROL_VEL ) {
+        controlador->reg_vel.set_ref(ui->sbRepaintInterval->value());
+    }
+    else {
+        controlador->reg_pos.set_ref(ui->sbRepaintInterval->value());
+    }
+}
+
