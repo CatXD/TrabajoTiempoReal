@@ -21,10 +21,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     controladormotor.cpp \
     evento_externo.cpp \
-        main.cpp \
+    main.cpp \
     interfaz.cpp \
     regulador.cpp \
-    sm_trabajo.cpp
+    sm_trabajo.cpp\
+    recta.cpp \
+    recta3trozos.cpp
+
 
 HEADERS += \
     controladormotor.h \
@@ -32,7 +35,9 @@ HEADERS += \
     interfaz.h \
     regulador.h \
     sm_trabajo.h \
-    valores_iniciales.h
+    valores_iniciales.h\
+    recta.h \
+    recta3trozos.h
 
 FORMS += \
     interfaz.ui
