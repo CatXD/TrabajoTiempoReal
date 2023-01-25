@@ -1,8 +1,13 @@
 #include "recta3trozos.h"
 
+Recta3Trozos::Recta3Trozos()
+{
+
+}
 
 Recta3Trozos::Recta3Trozos(Recta tramo1, double cruce12, double tramo2, double cruce23, Recta tramo3)
 {
+
     Recta3Trozos::Tramo1 = tramo1;
     Recta3Trozos::Tramo2 = tramo2;
     Recta3Trozos::Tramo3 = tramo3;
@@ -23,6 +28,35 @@ Recta3Trozos::Recta3Trozos(double tramo1_crucey, double tramo1_pend, double cruc
 
     Recta3Trozos::Tramo3.setPendiente(tramo3_pend);
     Recta3Trozos::Tramo1.setCorteEjeY(tramo3_crucey);
+}
+
+void Recta3Trozos::SetTramo1 (Recta tramo1)
+{
+    Tramo1 = tramo1;
+}
+
+void Recta3Trozos::SetTramo1 (double pend, double crucey)
+{
+    Recta3Trozos::Tramo1.setPendiente(pend);
+    Recta3Trozos::Tramo1.setCorteEjeY(crucey);
+}
+
+void Recta3Trozos::SetTramo2 ( double cruce12, double tramo2, double cruce23)
+{
+    Cruce12 = cruce12;
+    Tramo2 = tramo2;
+    Cruce23 = cruce23;
+}
+
+void Recta3Trozos::SetTramo3 (Recta tramo3)
+{
+    Tramo3 = tramo3;
+}
+
+void Recta3Trozos::SetTramo3 (double pend, double crucey)
+{
+    Recta3Trozos::Tramo3.setPendiente(pend);
+    Recta3Trozos::Tramo3.setCorteEjeY(crucey);
 }
 
 double Recta3Trozos::GetValue (double x)
