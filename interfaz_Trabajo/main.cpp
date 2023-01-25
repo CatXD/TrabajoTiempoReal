@@ -71,10 +71,30 @@ void *dibujar(void *param)
         usleep(100000);
     }
 }
-
+/*void FuncionParar(){
+    //aqui lanzaremos el evento para
+    //transiccionar al estado OFF que ejecutará el parpadeo
+}
+void FuncionReanudar(){
+    //aqui lanzaremos el evento para
+    //transiccionar al estado historico de ON que ejecutará el control
+}*/
 
 int main(int argc, char *argv[])
 {
+    /*wiringPiSetupGpio();
+    //CONFIGURACION DE PINES
+    pinMode(LED, OUTPUT);
+    pinMode(PWM, PWM_OUTPUT);
+    pinMode(PARAR, INPUT);
+    pinMode(REANUDAR, INPUT);
+    pullUpDnControl(PARAR,PUD_UP);
+    pullUpDnControl(REANUDAR,PUD_UP);
+
+    //CONFIGURACION DE LAS ISRS
+    wiringPiISR (int PARAR, int INT_EDGE_FALLING, &FuncionParar);
+    wiringPiISR (int REANUDAR, int INT_EDGE_FALLING,  &FuncionReanudar);*/
+
     ControladorMotor controlador;
     QApplication a(argc, argv);
     Interfaz w(MODO_CONTROL_VEL,  nullptr, &controlador);
