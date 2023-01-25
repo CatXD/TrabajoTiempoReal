@@ -7,6 +7,7 @@ using namespace std;
 
 SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
 {
+
     w=wpt;
     MachineControl = new QStateMachine();
     ON=new QState(MachineControl);
@@ -15,6 +16,7 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     OFF=new QState(MachineControl);
     ONh=new QHistoryState(ON);
     Estado_Final = new QFinalState(MachineControl);
+    motor = w->getControlMotor();
 
     //para transiciones desde ISRs del main.cpp
     /*TRAN_PARAR = new Transicion_Parar();
@@ -54,50 +56,26 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     }*/
 }
 
-void SM_trabajo::suma(timespec &t1, timespec &t2)
-{
-    t1.tv_nsec+=t2.tv_nsec; //primero sumo los nanosegundos
-    t1.tv_sec+=t2.tv_sec;   //despues los segundos
-    if(t1.tv_nsec>=1e9){    //y ajustamos los nanosegundos
-        t1.tv_sec++;
-        t1.tv_nsec-=1e9;
-    }
-}
-
-void SM_trabajo::FuncionControlPos()
+void SM_trabajo::Llamar_ControlPos()
 {
     w->ui->ptLog->appendPlainText("realizando control de posicion");
-    struct timespec t1,t2;
-    t1.tv_nsec=motor->reg_pos.get_T()*1e6;//para pasar a segundos
-    if(t1.tv_nsec>=1e9){
-        t1.tv_sec++;
-        t1.tv_nsec-=1e9;
-    }
-    clock_gettime(CLOCK_REALTIME,&t2); //capturamos el tiempo actual
-//    while(1){
-//        suma(t2,t1); //sumo al tiempo actual el periodo del hilo
-//        //aqui hacer
-//        //todo lo relacionado
-//        //con el lazo de control de POS
-//        clock_nanosleep(CLOCK_REALTIME,TIMER_ABSTIME,&t2,NULL); //espero el tiempo determinado
-//    }
+
+    pthread_create (&motor.h_reg_pos, nullptr, BucleControl_Pos, nullptr);
 }
 
-void SM_trabajo::FuncionControlVel()
+void SM_trabajo::Llamar_ControlPos()
+{
+    motor->Exterminar_BucleControl_Pos();
+}
+
+void SM_trabajo::Llamar_ControlVel()
 {
     w->ui->ptLog->appendPlainText("realizando control de velocidad");
-    struct timespec t1,t2;
-    t1.tv_nsec=motor->reg_vel.get_T()*1e6;//para pasar a segundos
-    if(t1.tv_nsec>=1e9){
-        t1.tv_sec++;
-        t1.tv_nsec-=1e9;
-    }
-    clock_gettime(CLOCK_REALTIME,&t2); //capturamos el tiempo actual
-//    while(1){
-//        suma(t2,t1); //sumo al tiempo actual el periodo del hilo
-//        //aqui hacer
-//        //todo lo relacionado
-//        //con el lazo de control de VEL
-//        clock_nanosleep(CLOCK_REALTIME,TIMER_ABSTIME,&t2,NULL); //espero el tiempo determinado
-//    }
+
+    pthread_create (&motor.h_reg_vel, nullptr, BucleControl_Vel, nullptr);
+}
+
+void SM_trabajo::Llamar_ControlVel()
+{
+    motor->Exterminar_BucleControl_Vel();
 }

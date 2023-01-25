@@ -15,6 +15,7 @@ class Regulador
     double vel;
     pthread_mutex_t mutex;//creado para garantizar la exclusion mutua de la pantalla accediendo a KP
 
+
 public:
     Regulador(double KP, double KI, double KD, int T);
     //setters y getters de las variables compartidas
