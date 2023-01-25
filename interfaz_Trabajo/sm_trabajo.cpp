@@ -87,7 +87,7 @@ void SM_trabajo::FuncionControlVel()
         t1.tv_sec++;
         t1.tv_nsec-=1e9;
     }
-
+    clock_gettime(CLOCK_REALTIME,&t2); //capturamos el tiempo actual
     while(1){
         suma(t2,t1); //sumo al tiempo actual el periodo del hilo
         //aqui hacer

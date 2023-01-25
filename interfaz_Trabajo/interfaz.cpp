@@ -246,10 +246,10 @@ void Interfaz::on_dialPosicion_valueChanged(int value)
 void Interfaz::on_bSetPeriodo_clicked()
 {
     if (modo_control_ == MODO_CONTROL_VEL ) {
-        controlador->reg_vel.set_ref(ui->sbRepaintInterval->value());
+        controlador->reg_vel.set_T(ui->sbRepaintInterval->value());
     }
     else {
-        controlador->reg_pos.set_ref(ui->sbRepaintInterval->value());
+        controlador->reg_pos.set_T(ui->sbRepaintInterval->value());
     }
 }
 
