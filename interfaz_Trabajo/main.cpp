@@ -5,9 +5,11 @@
 #include <pthread.h>
 #include <iostream>
 #include "valores_iniciales.h"
+#include "Evento_PARAR.h"
+#include "Evento_REANUDAR.h"
 using namespace  std;
 
-
+SM_trabajo * _machine_ptr;
 
 typedef enum {sierra, cuadrada} control;
 
@@ -71,14 +73,13 @@ void *dibujar(void *param)
         usleep(100000);
     }
 }
-/*void FuncionParar(){
-    //aqui lanzaremos el evento para
-    //transiccionar al estado OFF que ejecutará el parpadeo
+
+void FuncionParar(){
+    _machine_ptr->MachineControl->postEvent(new Evento_PARAR());
 }
 void FuncionReanudar(){
-    //aqui lanzaremos el evento para
-    //transiccionar al estado historico de ON que ejecutará el control
-}*/
+    _machine_ptr->MachineControl->postEvent(new Evento_REANUDAR());
+}
 
 int main(int argc, char *argv[])
 {
@@ -95,10 +96,14 @@ int main(int argc, char *argv[])
     wiringPiISR (int PARAR, int INT_EDGE_FALLING, &FuncionParar);
     wiringPiISR (int REANUDAR, int INT_EDGE_FALLING,  &FuncionReanudar);*/
 
+
     ControladorMotor controlador;
     QApplication a(argc, argv);
     Interfaz w(MODO_CONTROL_VEL,  nullptr, &controlador);
     SM_trabajo machine(&w,nullptr);
+
+    _machine_ptr = &machine;
+
     //machine.
     w.show();
     pthread_t hiloSierra, hiloCuadrada, hiloDibujar;

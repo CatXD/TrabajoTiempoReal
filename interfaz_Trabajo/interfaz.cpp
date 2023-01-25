@@ -175,12 +175,12 @@ void Interfaz::repaintPlot(double tiempo, double ref,  double y)
 
 void Interfaz::on_botonParar_clicked()   //A  RELLENAR
 {
-    cout << "el sistema deberia parar manteniendo el estado"<<endl;
+    ui->ptLog->appendPlainText("El sistema se encuentra parado haciendo parpadear un LED");
 }
 
 void Interfaz::on_botonReanudar_clicked()  //A  RELLENAR
 {
-    cout << "el sistema deberia reanudarse según el estado anterior" << endl;
+    ui->ptLog->appendPlainText("Se reanuda el control previo");
 }
 
  void Interfaz::on_botonFinalizar_clicked()

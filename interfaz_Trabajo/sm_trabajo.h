@@ -8,7 +8,9 @@
 #include <QHistoryState>
 #include <QFinalState>
 #include <time.h>
-//#include <QEvent>
+#include <QEventTransition>
+#include "Transicion_Parar.h"
+#include "Transicion_Reanudar.h"
 //#include <wiringPi.h>
 
 #define PWM 23
@@ -21,17 +23,20 @@ class SM_trabajo : public QObject
 {
     Q_OBJECT
 public:
+    QStateMachine *MachineControl;
     Interfaz *w;
     ControladorMotor *motor;
     SM_trabajo (Interfaz *w,QObject *parent=nullptr);
 private:
-    QStateMachine *MachineControl;
     QState *ON;
     QState *Control_Pos;
     QState *Control_Vel;
     QState *OFF;
     QHistoryState *ONh;
     QFinalState *Estado_Final;
+    //transiciones
+    Transicion_Parar *TRAN_PARAR;
+    Transicion_Reanudar *TRAN_REANUDAR;
 
 public:
     void suma(struct timespec&, struct timespec&);
