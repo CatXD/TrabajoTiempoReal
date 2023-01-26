@@ -21,15 +21,14 @@ class Interfaz;
 class Interfaz : public QMainWindow
 {
     Q_OBJECT
-    ControladorMotor *controlador = nullptr;
-
 
 public:
+    ControladorMotor *controlador = nullptr;
     explicit Interfaz(uint8_t modo=MODO_CONTROL_VEL, QWidget *parent = nullptr, ControladorMotor *ctrl = nullptr);
     //explicit Interfaz(uint8_t modo=MODO_CONTROL_VEL, QWidget *parent = nullptr);
     ~Interfaz();
     int getModoControl();
-    ControladorMotor * getControlMotor(){return controlador;};
+    ControladorMotor * getControlMotor(){return controlador;}
     Ui::Interfaz *ui;
 
 public slots:

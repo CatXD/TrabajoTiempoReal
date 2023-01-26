@@ -22,6 +22,7 @@ SOURCES += \
     controladormotor.cpp \
     main.cpp \
     interfaz.cpp \
+    placafisica.cpp \
     regulador.cpp \
     sm_trabajo.cpp\
     recta.cpp \
@@ -29,12 +30,9 @@ SOURCES += \
 
 
 HEADERS += \
-    Evento_PARAR.h \
-    Evento_REANUDAR.h \
-    Transicion_Parar.h \
-    Transicion_Reanudar.h \
     controladormotor.h \
     interfaz.h \
+    placafisica.h \
     regulador.h \
     sm_trabajo.h \
     valores_iniciales.h\

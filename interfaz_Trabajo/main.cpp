@@ -5,11 +5,11 @@
 #include <pthread.h>
 #include <iostream>
 #include "valores_iniciales.h"
-#include "Evento_PARAR.h"
-#include "Evento_REANUDAR.h"
+
 using namespace  std;
 
 SM_trabajo * _machine_ptr;
+Interfaz * _interfaz;
 
 typedef enum {sierra, cuadrada} control;
 
@@ -75,10 +75,11 @@ void *dibujar(void *param)
 }
 
 void FuncionParar(){
-    _machine_ptr->MachineControl->postEvent(new Evento_PARAR());
+    emit _interfaz->getControlMotor()->placaFisica.PARAR_signal();
+
 }
 void FuncionReanudar(){
-    _machine_ptr->MachineControl->postEvent(new Evento_REANUDAR());
+    emit _interfaz->getControlMotor()->placaFisica.REANUDAR_signal();
 }
 
 int main(int argc, char *argv[])
@@ -103,6 +104,7 @@ int main(int argc, char *argv[])
     SM_trabajo machine(&w,nullptr);
 
     _machine_ptr = &machine;
+    _interfaz = &w;
 
     //machine.
     w.show();
