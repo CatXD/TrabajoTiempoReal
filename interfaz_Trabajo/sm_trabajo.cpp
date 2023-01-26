@@ -31,8 +31,12 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     Control_Vel->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),Control_Pos);
 
 
-    connect(Control_Pos,SIGNAL(entered()),this,SLOT(FuncionControlPos()));
-    connect(Control_Vel,SIGNAL(entered()),this,SLOT(FuncionControlVel()));
+    connect(Control_Pos,SIGNAL(entered()),this,SLOT(Llamar_ControlPos()));
+    connect(Control_Pos,SIGNAL(exited()),this,SLOT(Exterminar_ControlPos()));
+    connect(Control_Vel,SIGNAL(entered()),this,SLOT(Llamar_ControlVel()));
+    connect(Control_Vel,SIGNAL(exited()),this,SLOT(Exterminar_ControlVel()));
+
+
     connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
     //esto creo que lo podríamos hacer en la ISR del main
     //*****   
@@ -63,7 +67,7 @@ void SM_trabajo::Llamar_ControlPos()
     pthread_create (&motor.h_reg_pos, nullptr, BucleControl_Pos, nullptr);
 }
 
-void SM_trabajo::Llamar_ControlPos()
+void SM_trabajo::Exterminar_ControlPos()
 {
     motor->Exterminar_BucleControl_Pos();
 }
@@ -75,7 +79,7 @@ void SM_trabajo::Llamar_ControlVel()
     pthread_create (&motor.h_reg_vel, nullptr, BucleControl_Vel, nullptr);
 }
 
-void SM_trabajo::Llamar_ControlVel()
+void SM_trabajo::Exterminar_ControlVel()
 {
     motor->Exterminar_BucleControl_Vel();
 }

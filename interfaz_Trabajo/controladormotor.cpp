@@ -5,6 +5,7 @@ ControladorMotor::ControladorMotor()
 VELADC_TO_RPM.SetTramo1(TRAMO1_PEND, TRAMO1_CRUCEY);
 VELADC_TO_RPM.SetTramo2 (CRUCE12, TRAMO2, CRUCE23);
 VELADC_TO_RPM.SetTramo3(TRAMO3_PEND, TRAMO3_CRUCEY);
+Init();
 }
 
 ControladorMotor::Init()
@@ -16,6 +17,7 @@ ControladorMotor::Init()
     sem_init (&sem_cambio_pos2vel, 0, 1);
     sem_init (&sem_cambio_vel2pos, 0, 0);
 
+    pthread_mutex_init(&mutex,NULL);
 }
 
 /// @brief Funcion de suma de timespec
@@ -31,9 +33,37 @@ void SM_trabajo::suma(timespec &t1, timespec &t2)
     }
 }
 
+void Regulador::set_pos(double pos){
+    pthread_mutex_lock(&mutex);
+    this->pos=pos;
+    pthread_mutex_unlock(&mutex);
+}
+double Regulador::get_pos(void){
+    double valor;
+    pthread_mutex_lock(&mutex);
+    valor=pos;
+    pthread_mutex_unlock(&mutex);
+    return valor;
+}
+void Regulador::set_vel(double vel){
+    pthread_mutex_lock(&mutex);
+    this->vel=vel;
+    pthread_mutex_unlock(&mutex);
+}
+double Regulador::get_vel(void){
+    double valor;
+    pthread_mutex_lock(&mutex);
+    valor=vel;
+    pthread_mutex_unlock(&mutex);
+    return valor;
+}
+
+
 
 void ControladorMotor::BucleControl_Pos ()
 {
+    int y_medida, salida;
+
     sem_wait (&sem_cambio_vel2pos);
 
     struct timespec t1,t2;
@@ -46,7 +76,17 @@ void ControladorMotor::BucleControl_Pos ()
 
     while ( !flag_exterminate_h_reg_pos )
     {
-        //cosas del control
+        //Leo entradas
+
+        //Recta de calibracion
+
+        //Ejecuto regulador
+        salida = this->reg_pos.calculaAccionControl ( y_medida );
+
+        //Efectuo accion de control
+        
+        
+
 
         suma(t2,t1); //sumo al tiempo actual el periodo del hilo
         clock_nanosleep(CLOCK_REALTIME,TIMER_ABSTIME,&t2,NULL); //espero el tiempo determinado
@@ -59,6 +99,8 @@ void ControladorMotor::BucleControl_Pos ()
 
 void ControladorMotor::BucleControl_Vel ()
 {
+        int y_medida, salida;
+
     sem_wait (&sem_cambio_pos2vel);
 
     struct timespec t1,t2;
@@ -72,9 +114,17 @@ void ControladorMotor::BucleControl_Vel ()
 
     while ( !flag_exterminate_h_reg_vel )
     {
-//        //aqui hacer
-//        //todo lo relacionado
-//        //con el lazo de control de VEL
+        //Leo entradas
+
+        //Recta de calibracion
+
+        //Ejecuto regulador
+        salida = this->reg_vel.calculaAccionControl ( y_medida );
+
+        //Efectuo accion de control
+        
+        
+
 
         suma(t2,t1); //sumo al tiempo actual el periodo del hilo
         clock_nanosleep(CLOCK_REALTIME,TIMER_ABSTIME,&t2,NULL); //espero el tiempo determinado

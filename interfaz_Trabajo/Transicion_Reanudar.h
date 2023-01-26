@@ -6,7 +6,7 @@
 class	Transicion_Reanudar	:	public	QAbstractTransition		//Clase	transición	propia
 {
 public:
-     Transicion_Reanudar()	{}
+     //Transicion_Reanudar()	{}
 protected:
     virtual	bool	eventTest(QEvent	*e)	const
     {

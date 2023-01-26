@@ -42,8 +42,15 @@ public:
     void suma(struct timespec&, struct timespec&);
 
 public slots:
-    void FuncionControlPos();
-    void FuncionControlVel();
+    // void FuncionControlPos();
+    // void FuncionControlVel();
+    void Llamar_ControlPos();
+    void Llamar_ControlVel();
+
+    void Exterm_ControlPos();
+    void Exterm_ControlVel();
+
+
     //void ControlParado();
 };
 
