@@ -4,12 +4,12 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets charts
+QT       += core gui widgets
 QT += statemachine
 
 greaterThan(QT_MAJOR_VERSION, 4): QT +=  printsupport
 
-TARGET = interaz_Trabajo
+TARGET = interfaz_edibon
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -18,30 +18,38 @@ TEMPLATE = app
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
+CONFIG += c++11
+
 SOURCES += \
     controladormotor.cpp \
     main.cpp \
-    interfaz.cpp \
     placafisica.cpp \
-    regulador.cpp \
-    sm_trabajo.cpp\
     recta.cpp \
-    recta3trozos.cpp
-
+    recta3trozos.cpp \
+    regulador.cpp \
+    sm_trabajo.cpp \
+    interfaz.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
     controladormotor.h \
-    interfaz.h \
     placafisica.h \
+    recta.h \
+    recta3trozos.h \
     regulador.h \
     sm_trabajo.h \
-    valores_iniciales.h\
-    recta.h \
-    recta3trozos.h
+    interfaz.h \
+    qcustomplot.h \
+    valores_iniciales.h
 
 FORMS += \
     interfaz.ui
 
-#LIBS += -lwiringPi
+LIBS += -lpthread
 
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
 
