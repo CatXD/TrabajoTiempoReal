@@ -66,7 +66,7 @@ void Regulador::set_consigna(double consigna){
     this->consigna_actual = consigna;
     pthread_mutex_unlock(&mutex);
 }
-double Regulador::get_consigna_actual(void){
+double Regulador::get_consigna(void){
     double valor;
     pthread_mutex_lock(&mutex);
     valor = consigna_actual;
@@ -74,10 +74,19 @@ double Regulador::get_consigna_actual(void){
     return valor;
 }
 
-double Regulador::get_salida_actual(void){
+double Regulador::get_uk(void){
     double valor;
     pthread_mutex_lock(&mutex);
     valor = salida_actual;
+    pthread_mutex_unlock(&mutex);
+    return valor;
+}
+
+double Regulador::get_y()
+{
+    double valor;
+    pthread_mutex_lock(&mutex);
+    valor = y_actual;
     pthread_mutex_unlock(&mutex);
     return valor;
 }
@@ -95,7 +104,7 @@ double Regulador::calculaAccionControl (double consigna, double y_medida)
     U = P + I + D;
 
     salida_actual = U;
-    //consigna_actual = consigna;
+    y_actual = y_medida;
     error_ans = error;
 
     pthread_mutex_unlock(&mutex);

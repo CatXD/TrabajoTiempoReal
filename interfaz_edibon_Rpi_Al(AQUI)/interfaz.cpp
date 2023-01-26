@@ -1,6 +1,5 @@
 #include "interfaz.h"
 #include "ui_interfaz.h"
-
 #include <string>
 
 #include <stdlib.h>
@@ -13,13 +12,13 @@ Interfaz::Interfaz(uint8_t modo, QWidget *parent, ControladorMotor *ctrl) : QMai
     modo_control_(modo)
 
 {
-    controlador = ctrl;
     minAxeY=0;
     maxAxeY=0;
 
     /// Inicialización de elementos de interfaz.ui
     ui->setupUi(this);
-    modo_control_ = MODO_CONTROL_VEL;
+    controlador = ctrl;
+    //modo_control_ = MODO_CONTROL_VEL;
     setEnabledControlVel(true);
     setEnabledControlPos(false);
     settingAreaGraph();
@@ -131,12 +130,12 @@ void Interfaz::onTimeout(void){
     t= t + Tms /1000.0;
     cout<< "el tiempo es "<< t<< endl;
     if ( modo_control_ == MODO_CONTROL_VEL){
-        muestraDatoSlot(t,controlador->reg_vel.get_ref(), variablesCompartidas_->actuador,
-                        variablesCompartidas_->salida );
+        muestraDatoSlot(t,controlador->reg_vel.get_consigna(), controlador->reg_vel.get_uk(),
+                        controlador->reg_vel.get_y());
     }
     else{
-        muestraDatoSlot(t,controlador->, variablesCompartidas_->actuador,
-                        variablesCompartidas_->salida );;
+        muestraDatoSlot(t,controlador->reg_pos.get_consigna(), controlador->reg_pos.get_uk(),
+                        controlador->reg_pos.get_y());
     }
 
 }
@@ -182,12 +181,12 @@ void Interfaz::repaintPlot(double tiempo, double ref, double u, double y)
 
 void Interfaz::on_botonParar_clicked()   //A  RELLENAR
 {
-    cout << "el sistema deberia parar manteniendo el estado"<<endl;
+    ui->ptLog->appendPlainText("El sistema se encuentra parado haciendo parpadear un LED");
 }
 
 void Interfaz::on_botonReanudar_clicked()  //A  RELLENAR
 {
-    cout << "el sistema deberia reanudarse según el estado anterior" << endl;
+    ui->ptLog->appendPlainText("Se reanuda el control previo");
 }
 
 void Interfaz::on_botonFinalizar_clicked()
@@ -198,30 +197,26 @@ void Interfaz::on_botonFinalizar_clicked()
 
 void Interfaz::on_botonSetReferencia_clicked()  //A  RELLENAR
 {
-    double referencia;
     if (modo_control_ == MODO_CONTROL_VEL ) {
+        controlador->reg_vel.set_consigna(ui->dialRefVelPos->value());
     }
-    else{
-
+    else {
+        controlador->reg_pos.set_consigna(ui->dialRefVelPos->value());
     }
 }
 
 void Interfaz::on_botonSetParametros_clicked()   //A RELLENAR
 {
-    double Kp, Ki, Kd;
     if (modo_control_ == MODO_CONTROL_VEL ) {
-        Kp = ui->sbCVelocidadKp->value();
-        Ki = ui->sbCVelocidadKi->value();
-        Kd = ui->sbCVelocidadKd->value();
+        controlador->reg_vel.set_KP(ui->sbCVelocidadKp->value());
+        controlador->reg_vel.set_KI(ui->sbCVelocidadKi->value());
+        controlador->reg_vel.set_KD(ui->sbCVelocidadKd->value());
     }
     else {
-        Kp = ui->sbCPosicionKp->value();
-        Ki = ui->sbCPosicionKi->value();
-        Kd = ui->sbCPosicionKd->value();
+        controlador->reg_pos.set_KP(ui->sbCPosicionKp->value());
+        controlador->reg_pos.set_KI(ui->sbCPosicionKi->value());
+        controlador->reg_pos.set_KD(ui->sbCPosicionKd->value());
     }
-
-    cout<< "Aqui debe tomar los valores del regulador y enviarlos al programa de control"<< endl;
-    cout<<"Kp = "<< Kp <<"  Ki= "<<Ki<<"  Kd= "<<Kd<<endl;
 }
 
 void Interfaz::on_toggleModoControl_clicked()   //COMPLETO
@@ -253,4 +248,13 @@ void Interfaz::on_dVelocidad_valueChanged(int value)
 void Interfaz::on_dPosicion_valueChanged(int value)
 {
     ui->labelValuePos->setNum(value);
+}
+void Interfaz::on_bSetPeriodo_clicked()
+{
+    if (modo_control_ == MODO_CONTROL_VEL ) {
+        controlador->reg_vel.set_T(ui->sbRepaintInterval->value());
+    }
+    else {
+        controlador->reg_pos.set_T(ui->sbRepaintInterval->value());
+    }
 }

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui widgets
+QT += statemachine
 
 greaterThan(QT_MAJOR_VERSION, 4): QT +=  printsupport
 
@@ -27,12 +28,11 @@ SOURCES += \
     recta3trozos.cpp \
     regulador.cpp \
     sm_trabajo.cpp \
-    main.cpp \
     interfaz.cpp \
     qcustomplot.cpp
 
 HEADERS += \
-    ControladorMotor.h \
+    controladormotor.h \
     placafisica.h \
     recta.h \
     recta3trozos.h \
@@ -48,8 +48,8 @@ FORMS += \
 LIBS += -lpthread
 
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+## Default rules for deployment.
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target
 

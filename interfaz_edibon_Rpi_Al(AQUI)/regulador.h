@@ -18,6 +18,7 @@ class Regulador
     double error_ans;     //error anterior
 
     //Estado
+    double y_actual;
     double consigna_actual;
     double salida_actual;
 
@@ -35,10 +36,11 @@ public:
     double get_KD(void);
     void set_T(int T);
     int get_T(void);
-     void set_ref(double ref);
-     double get_consigna(void);
+
+    double get_consigna(void);
     void set_consigna(double pos);
-     double get_salida_actual(void);
+    double get_uk(void);
+    double get_y(void);
 
     double calculaAccionControl (double consigna, double y_medida);
 };
