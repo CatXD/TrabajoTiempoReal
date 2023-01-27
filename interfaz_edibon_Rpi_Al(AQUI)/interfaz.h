@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include "qcustomplot.h"
 #include "controladormotor.h"
+#include "ui_interfaz.h"
 
 
 
