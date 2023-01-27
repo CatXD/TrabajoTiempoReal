@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui widgets
-QT       += statemachine
+
 QT       += core
 
 
@@ -25,7 +25,6 @@ CONFIG += c++11
 SOURCES += \
     controladormotor.cpp \
     main.cpp \
-    placafisica.cpp \
     recta.cpp \
     recta3trozos.cpp \
     regulador.cpp \
@@ -36,7 +35,6 @@ SOURCES += \
 
 HEADERS += \
     controladormotor.h \
-    placafisica.h \
     recta.h \
     recta3trozos.h \
     regulador.h \

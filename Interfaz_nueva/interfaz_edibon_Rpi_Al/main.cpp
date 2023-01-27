@@ -47,11 +47,11 @@ Interfaz * _interfaz;
 //    }
 //}
 void FuncionParar(){
-    emit _interfaz->getControlMotor()->placaFisica.PARAR_signal();
+    //emit _interfaz->getControlMotor()->placaFisica.PARAR_signal();
 
 }
 void FuncionReanudar(){
-    emit _interfaz->getControlMotor()->placaFisica.REANUDAR_signal();
+    //emit _interfaz->getControlMotor()->placaFisica.REANUDAR_signal();
 }
 
 
@@ -69,7 +69,9 @@ int main(int argc, char *argv[])
     //CONFIGURACION DE LAS ISRS
     wiringPiISR (int PARAR, int INT_EDGE_FALLING, &FuncionParar);
     wiringPiISR (int REANUDAR, int INT_EDGE_FALLING,  &FuncionReanudar);*/
-    ControladorMotor controlador;
+
+
+    ControladorMotor controlador();
     QApplication a(argc, argv);
     Interfaz w(MODO_CONTROL_VEL,  nullptr, &controlador);
     SM_trabajo machine(&w,nullptr);
