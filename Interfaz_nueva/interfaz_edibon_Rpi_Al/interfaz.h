@@ -31,6 +31,7 @@ public:
     ~Interfaz();
     int getModoControl();
     Ui::Interfaz *ui;
+    ControladorMotor* getControlMotor(){return controlador;}
 public slots:
     void muestraDatoSlot(double t, double ref, double u, double y);
 

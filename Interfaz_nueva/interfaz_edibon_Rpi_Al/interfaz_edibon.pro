@@ -30,7 +30,9 @@ SOURCES += \
     regulador.cpp \
     sm_trabajo.cpp \
     interfaz.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    timer_controlvel.cpp \
+    timer_controlpos.cpp
 
 
 HEADERS += \
@@ -41,12 +43,15 @@ HEADERS += \
     sm_trabajo.h \
     interfaz.h \
     qcustomplot.h \
-    valores_iniciales.h
+    valores_iniciales.h \
+    timer_controlvel.h \
+    timer_controlpos.h
 
 FORMS += \
     interfaz.ui
 
 LIBS += -lpthread
+LIBS += -lwiringPi
 
 
 # Default rules for deployment.

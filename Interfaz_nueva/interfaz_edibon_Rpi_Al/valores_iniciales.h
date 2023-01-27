@@ -35,7 +35,7 @@
 #define TRAMO3_CRUCEY (-145.69)
 #define TRAMO3_PEND 0.26600
 
-#define Tms 200 //en ms
+#define Tms 500 //en ms
 
 
 

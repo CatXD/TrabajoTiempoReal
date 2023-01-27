@@ -8,7 +8,6 @@
 #include <QHistoryState>
 #include <QFinalState>
 #include <time.h>
-#include <QEventTransition>
 
 //#include <wiringPi.h>
 
@@ -35,12 +34,10 @@ private:
     QFinalState *Estado_Final;
 
 
-public:
-    void suma(struct timespec&, struct timespec&);
-
 public slots:
     void FuncionControlPos();
     void FuncionControlVel();
+    void ParpadeoLED();
     //void ControlParado();
 
 

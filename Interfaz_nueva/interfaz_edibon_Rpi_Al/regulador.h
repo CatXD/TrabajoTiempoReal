@@ -38,7 +38,7 @@ public:
     int get_T(void);
 
     double get_consigna(void);
-    void set_consigna(double pos);
+    void set_consigna(double consigna);
     double get_uk(void);
     double get_y(void);
 

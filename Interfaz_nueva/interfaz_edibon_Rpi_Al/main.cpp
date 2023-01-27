@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <pthread.h>
 #include "valores_iniciales.h"
+#include "wiringPi.h"
+
 
 SM_trabajo * _machine_ptr;
 Interfaz * _interfaz;
@@ -47,17 +49,19 @@ Interfaz * _interfaz;
 //    }
 //}
 void FuncionParar(){
-    //emit _interfaz->getControlMotor()->placaFisica.PARAR_signal();
+    _interfaz->ui->ptLog->appendPlainText("Diego guarro");
+    //emit _interfaz->controlador->PARAR_signal();
 
 }
 void FuncionReanudar(){
+    _interfaz->ui->ptLog->appendPlainText("Diego guarro");
     //emit _interfaz->getControlMotor()->placaFisica.REANUDAR_signal();
 }
 
 
 int main(int argc, char *argv[])
 {
-    /*wiringPiSetupGpio();
+    wiringPiSetupGpio();
     //CONFIGURACION DE PINES
     pinMode(LED, OUTPUT);
     pinMode(PWM, PWM_OUTPUT);
@@ -67,11 +71,12 @@ int main(int argc, char *argv[])
     pullUpDnControl(REANUDAR,PUD_UP);
 
     //CONFIGURACION DE LAS ISRS
-    wiringPiISR (int PARAR, int INT_EDGE_FALLING, &FuncionParar);
-    wiringPiISR (int REANUDAR, int INT_EDGE_FALLING,  &FuncionReanudar);*/
+    wiringPiISR (PARAR, INT_EDGE_FALLING, FuncionParar);
+    wiringPiISR (REANUDAR, INT_EDGE_FALLING,  FuncionReanudar);
 
 
-    ControladorMotor controlador();
+    ControladorMotor controlador;
+    controlador.Init();
     QApplication a(argc, argv);
     Interfaz w(MODO_CONTROL_VEL,  nullptr, &controlador);
     SM_trabajo machine(&w,nullptr);
