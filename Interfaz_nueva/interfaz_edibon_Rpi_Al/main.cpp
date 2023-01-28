@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include "valores_iniciales.h"
-#include "wiringPi.h"
+#include "definicion_pines.h"
 
 
 SM_trabajo * _machine_ptr;
@@ -50,12 +50,12 @@ Interfaz * _interfaz;
 //}
 void FuncionParar(){
     _interfaz->ui->ptLog->appendPlainText("Diego guarro");
-    //emit _interfaz->controlador->PARAR_signal();
+    emit _machine_ptr->PARAR_signal();
 
 }
 void FuncionReanudar(){
     _interfaz->ui->ptLog->appendPlainText("Diego guarro");
-    //emit _interfaz->getControlMotor()->placaFisica.REANUDAR_signal();
+    emit _machine_ptr->REANUDAR_signal();
 }
 
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     wiringPiSetupGpio();
     //CONFIGURACION DE PINES
     pinMode(LED, OUTPUT);
-    pinMode(PWM, PWM_OUTPUT);
+    //pinMode(PWM, PWM_OUTPUT);
     pinMode(PARAR, INPUT);
     pinMode(REANUDAR, INPUT);
     pullUpDnControl(PARAR,PUD_UP);

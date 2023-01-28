@@ -21,11 +21,12 @@ public:
 
     int T_actual;
 
-    void start();
-    void stop();
+
 
 public slots:
     void timerSlot_pos();
+    void start();
+    void stop();
 };
 
 

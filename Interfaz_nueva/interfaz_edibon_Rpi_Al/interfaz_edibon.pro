@@ -6,7 +6,7 @@
 
 QT       += core gui widgets
 
-QT       += core
+#QT       += core
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT +=  printsupport
@@ -32,7 +32,8 @@ SOURCES += \
     interfaz.cpp \
     qcustomplot.cpp \
     timer_controlvel.cpp \
-    timer_controlpos.cpp
+    timer_controlpos.cpp \
+    timer_blinkled.cpp
 
 
 HEADERS += \
@@ -45,7 +46,9 @@ HEADERS += \
     qcustomplot.h \
     valores_iniciales.h \
     timer_controlvel.h \
-    timer_controlpos.h
+    timer_controlpos.h \
+    timer_blinkled.h \
+    definicion_pines.h
 
 FORMS += \
     interfaz.ui

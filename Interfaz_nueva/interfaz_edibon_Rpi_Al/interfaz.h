@@ -26,7 +26,7 @@ class Interfaz : public QMainWindow
     Q_OBJECT
 
 public:
-    ControladorMotor *controlador = nullptr;
+    ControladorMotor *controlador; //= nullptr;
    explicit Interfaz(uint8_t modo=MODO_CONTROL_VEL, QWidget *parent = nullptr, ControladorMotor *ctrl = nullptr);
     ~Interfaz();
     int getModoControl();

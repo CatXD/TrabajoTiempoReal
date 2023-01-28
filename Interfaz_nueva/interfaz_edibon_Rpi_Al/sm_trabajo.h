@@ -8,13 +8,7 @@
 #include <QHistoryState>
 #include <QFinalState>
 #include <time.h>
-
-//#include <wiringPi.h>
-
-#define PWM 23
-#define PARAR 0
-#define REANUDAR 2
-#define LED 3
+#include "definicion_pines.h"
 
 
 class SM_trabajo : public QObject
@@ -34,11 +28,9 @@ private:
     QFinalState *Estado_Final;
 
 
-public slots:
-    void FuncionControlPos();
-    void FuncionControlVel();
-    void ParpadeoLED();
-    //void ControlParado();
+signals:
+    void PARAR_signal(void);
+    void REANUDAR_signal(void);
 
 
 };

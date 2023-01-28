@@ -15,21 +15,33 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     OFF=new QState(MachineControl);
     ONh=new QHistoryState(ON);
     Estado_Final = new QFinalState(MachineControl);
-    //motor = w->getControlMotor();////////////////////////////////
+    motor = w->getControlMotor();////////////////////////////////
 
     //transicciones
     ON->addTransition(w->ui->botonParar,SIGNAL(clicked()),OFF);
-    //ON->addTransition(motor,SIGNAL(motor->placaFisica.PARAR_signal()),OFF);////////////////////////////////////////
+    ON->addTransition(this,SIGNAL(PARAR_signal()),OFF);
     OFF->addTransition(w->ui->botonReanudar,SIGNAL(clicked()),ON);
+    OFF->addTransition(this,SIGNAL(REANUDAR_signal()),ON);
     ON->addTransition(w->ui->botonFinalizar,SIGNAL(clicked()),Estado_Final);
     OFF->addTransition(w->ui->botonFinalizar,SIGNAL(clicked()),Estado_Final);
     Control_Pos->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),Control_Vel);
     Control_Vel->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),Control_Pos);
 
 
-    connect(Control_Pos,SIGNAL(entered()),this,SLOT(FuncionControlPos()));
-    connect(Control_Vel,SIGNAL(entered()),this,SLOT(FuncionControlVel()));
-    connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
+    //connect(Control_Pos,SIGNAL(entered()),this,SLOT(FuncionControlPos()));
+    connect(Control_Pos,SIGNAL(entered()),&motor->timer_pos,SLOT(motor->timer_pos.start()));
+    connect(Control_Pos,SIGNAL(exited()),&motor->timer_pos,SLOT(motor->timer_pos.stop()));
+    connect(motor->timer_pos.timer,SIGNAL(timeout()), &motor->timer_pos,  SLOT(motor->timer_pos.timerSlot_pos()));
+
+    //connect(Control_Vel,SIGNAL(entered()),this,SLOT(FuncionControlVel()));
+    connect(Control_Vel,SIGNAL(entered()),&motor->timer_vel,SLOT(motor->timer_vel.start()));
+    connect(Control_Vel,SIGNAL(exited()),&motor->timer_vel,SLOT(motor->timer_vel.stop()));
+    connect(motor->timer_vel.timer,SIGNAL(timeout()), &motor->timer_vel,  SLOT(motor->timer_vel.timerSlot_vel()));
+
+    //connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
+    connect(OFF,SIGNAL(entered()),&motor->timer_blinked,SLOT(motor->timer_blinked.Blink_LED_start()));
+    connect(OFF,SIGNAL(exited()),&motor->timer_blinked,SLOT(motor->timer_blinked.Blink_LED_stop()));
+    connect(motor->timer_blinked.timer,SIGNAL(timeout()), &motor->timer_blinked,  SLOT(motor->timer_blinked.Blink_LED_exec()) );
     //esto creo que lo podríamos hacer en la ISR del main
     //*****   
     //connect(Estado_Final,SIGNAL(entered()),this,SLOT(ApagarPinesRPI()));
@@ -37,31 +49,5 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     MachineControl->setInitialState(ON);
     ON->setInitialState(Control_Vel);
     MachineControl->start();
-
-
-    //ON->addTransition()
-
-
-
-//rellenar todo --> transicciones + connects
-
-    //PROTOTIPO DE FUNCION Entry/Exit
-    /*void SM_trabajo::s11Entrar()
-    {
-        w->cambiarColorActivado(w->labelS11);
-    }*/
 }
 
-void SM_trabajo::FuncionControlPos()
-{
-    w->ui->ptLog->appendPlainText("realizando control de posicion");
-}
-
-void SM_trabajo::FuncionControlVel()
-{
-    w->ui->ptLog->appendPlainText("realizando control de velocidad");
-}
-void SM_trabajo::ParpadeoLED()
-{
-    w->ui->ptLog->appendPlainText("realizando el parpadeo del LED");
-}

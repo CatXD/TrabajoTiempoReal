@@ -252,8 +252,12 @@ void Interfaz::on_bSetPeriodo_clicked()
 {
     if (modo_control_ == MODO_CONTROL_VEL ) {
         controlador->reg_vel.set_T(ui->sbRepaintInterval->value());
+        QString mens = "El nuevo Tm (Control de velocidad) es de " + QString::number(ui->sbRepaintInterval->value());
+        ui->ptLog->appendPlainText(mens);
     }
     else {
         controlador->reg_pos.set_T(ui->sbRepaintInterval->value());
+        QString mens = "El nuevo Tm (Control de posicion) es de " + QString::number(ui->sbRepaintInterval->value());
+        ui->ptLog->appendPlainText(mens);
     }
 }

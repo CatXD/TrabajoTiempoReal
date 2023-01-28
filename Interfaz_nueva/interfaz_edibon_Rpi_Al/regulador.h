@@ -20,7 +20,7 @@ class Regulador
     //Estado
     double y_actual;
     double consigna_actual;
-    double salida_actual;
+    double uk;
 
     pthread_mutex_t mutex;//creado para garantizar la exclusion mutua de la pantalla accediendo a KP
 

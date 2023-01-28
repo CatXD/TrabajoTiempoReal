@@ -77,7 +77,7 @@ double Regulador::get_consigna(void){
 double Regulador::get_uk(void){
     double valor;
     pthread_mutex_lock(&mutex);
-    valor = salida_actual;
+    valor = uk;
     pthread_mutex_unlock(&mutex);
     return valor;
 }
@@ -103,7 +103,7 @@ double Regulador::calculaAccionControl (double consigna, double y_medida)
     D = (error - error_ans)* KD / T;
     U = P + I + D;
 
-    salida_actual = U;
+    uk = U;
     y_actual = y_medida;
     error_ans = error;
 

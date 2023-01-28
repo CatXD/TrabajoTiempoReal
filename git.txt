@@ -1,5 +1,5 @@
-1. $ eval "$(ssh-agent -s)"
-(1.5 ssh-add ~/.ssh/<nombreClave>)
+1. eval "$(ssh-agent -s)"
+(1.5 ssh-add ~/.ssh/keyDi)
 2. git pull
 3. git add -a
 4. git commit 
