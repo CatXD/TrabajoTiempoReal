@@ -1,6 +1,7 @@
 #include "timer_blinkled.h"
 #include <QDebug>
-
+#include <iostream>
+using namespace std;
 
 
 void Timer_BlinkLED::Init ()
@@ -9,7 +10,7 @@ void Timer_BlinkLED::Init ()
     timer = new QTimer(this);
     // setup signal and slot
     connect(timer, SIGNAL(timeout()),
-          this, SLOT(Blink_LED_stop()));
+          this, SLOT(Blink_LED_exec()));
 
 
 }
@@ -17,7 +18,7 @@ void Timer_BlinkLED::Init ()
 void Timer_BlinkLED::Blink_LED_start()
 {
     // msec
-    estado = true;
+    //estado = true;
     timer->start(periodo);
     digitalWrite(LED, estado);
 }
@@ -31,7 +32,6 @@ void Timer_BlinkLED::Blink_LED_stop()
 
 void Timer_BlinkLED::Blink_LED_exec()
 {
-
     estado = !estado;
     digitalWrite(LED, estado);
 }

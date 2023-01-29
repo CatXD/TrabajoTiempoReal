@@ -41,7 +41,7 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     //connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
     connect(OFF,SIGNAL(entered()),&motor->timer_blinked,SLOT(Blink_LED_start()));
     connect(OFF,SIGNAL(exited()),&motor->timer_blinked,SLOT(Blink_LED_stop()));
-    connect(motor->timer_blinked.timer,SIGNAL(timeout()), &motor->timer_blinked,  SLOT(Blink_LED_exec()) );
+
     //esto creo que lo podríamos hacer en la ISR del main
     //*****   
     //connect(Estado_Final,SIGNAL(entered()),this,SLOT(ApagarPinesRPI()));

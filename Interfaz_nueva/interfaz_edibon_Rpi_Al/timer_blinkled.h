@@ -10,6 +10,7 @@ class Timer_BlinkLED : public QObject
 protected:
     int periodo = 500;
     bool estado = false;
+    int cont = 2;
 public:
     void Init();
     QTimer *timer;
