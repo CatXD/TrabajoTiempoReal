@@ -9,16 +9,17 @@
 
 using namespace std;
 
-#define PWM 23 //GPIO13
-#define LED 3 //gpio22
-#define PARAR 0 //17
-#define REANUDAR 2//gpio27
+#define PWM 13 //23
+#define PARAR 17 //0
+#define REANUDAR 27 //2
+#define LED 22 //3
 
-#define CHAN_CONFIG_SINGLE  8   //setup channel 0 as Single-ended input
-#define SPICHANNEL          0   //MCP3008 connect to SPI0
+#define CHAN_CONFIG_SINGLE   8   //setup channel 0 as Single-ended input
+#define SPICHANNEL           0   //MCP3008 connect to SPI0
 #define ANALCHANNEL_REF      0
 #define ANALCHANNEL_POT      1
 #define ANALCHANNEL_VEL      2
+
 static int spifd ;
 
 void spiSetup (int spiChannel)
@@ -41,13 +42,13 @@ int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
     return ( (buffer[1] & 3 ) << 8 ) + buffer[2]; // get last 10 bits
 }
 
-int main1()
+int main()
 {
     int pwm;
     int vel;
     string rpm;
    int led_estado = 1;
-    wiringPiSetup();
+    wiringPiSetupGpio();
     spiSetup(SPICHANNEL);
     pinMode(PWM,PWM_OUTPUT);
     pinMode (LED, OUTPUT);
@@ -87,13 +88,13 @@ int main1()
     return 0;
 }
 
-int main()
+int main1()
 {
     int pwm;
     int vel;
     string rpm;
    int led_estado = 1;
-    wiringPiSetup();
+    wiringPiSetupGpio();
     spiSetup(SPICHANNEL);
     pinMode(PWM,PWM_OUTPUT);
     pinMode (LED, OUTPUT);

@@ -9,13 +9,13 @@
 
 using namespace std;
 
-#define PWM 23 //GPIO13
-#define LED 3 //gpio22
-#define PARAR 0 //17
-#define REANUDAR 2//gpio27
+#define PWM 13 //23
+#define PARAR 17 //0
+#define REANUDAR 27 //2
+#define LED 22 //3
 
-#define CHAN_CONFIG_SINGLE  8   //setup channel 0 as Single-ended input
-#define SPICHANNEL          0   //MCP3008 connect to SPI0
+#define CHAN_CONFIG_SINGLE   8   //setup channel 0 as Single-ended input
+#define SPICHANNEL           0   //MCP3008 connect to SPI0
 #define ANALCHANNEL_REF      0
 #define ANALCHANNEL_POT      1
 #define ANALCHANNEL_VEL      2
@@ -46,7 +46,7 @@ int main()
     int pos, ref;
     string vacio;
     int led_estado = 1;
-    wiringPiSetup();
+    wiringPiSetupGpio();
     spiSetup(SPICHANNEL);
 
     pinMode (PWM, PWM_OUTPUT);
