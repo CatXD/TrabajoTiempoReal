@@ -7,8 +7,11 @@
 
 //}
 
-void Timer_ControlPos::Init (Regulador * reg)
+void Timer_ControlPos::Init (Regulador * reg, Regulador * reg_vel)
 {
+    VELADC_TO_RPM.SetTramo1(TRAMO1_PEND, TRAMO1_CRUCEY);
+    VELADC_TO_RPM.SetTramo2 (CRUCE12, TRAMO2, CRUCE23);
+    VELADC_TO_RPM.SetTramo3(TRAMO3_PEND, TRAMO3_CRUCEY);
 
     // create a timer
     timer = new QTimer(this);
@@ -17,6 +20,7 @@ void Timer_ControlPos::Init (Regulador * reg)
           this, SLOT(timerSlot_pos()));
 
     regulador = reg;
+    regulador_vel = reg_vel;
 }
 
 void Timer_ControlPos::start()
@@ -35,7 +39,12 @@ void Timer_ControlPos::stop()
 void Timer_ControlPos::timerSlot_pos()
 {
     int pos_act_raw;
-    double pos_grados, accion_control;
+    double pos_grados, vel_ref;
+
+    contador--;
+
+    if (contador <= 0)
+    {
 
     //Leo entradas
     pos_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_POT);
@@ -44,20 +53,36 @@ void Timer_ControlPos::timerSlot_pos()
     pos_grados = 360.0 / 1023.0 * (pos_act_raw - 512);
 
     //Regulador
-    accion_control = regulador->calculaAccionControl(regulador->get_consigna(), pos_grados, 0, 1023);
+    vel_ref = regulador->calculaAccionControl(regulador->get_consigna(), pos_grados, -45, 45);
+    regulador_vel->set_consigna(vel_ref);
+
+    printf("Consigna grados: %f, Pos grados: %f, Vel ref: %f\n", regulador->get_consigna(), pos_grados, regulador_vel->get_consigna());
+
+    contador = 10;
+    }
 
 
-    printf("Pos grados: %f, U Pos= %f\n",pos_grados, accion_control);
+    // Regulador de velocidad
+
+    int vel_act_raw;
+    double vel_rpm, accion_control;
+
+    //Leo entradas velocidad
+    vel_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
+
+    //recta de calibracion
+    vel_rpm = VELADC_TO_RPM.GetValue(vel_act_raw);
+
+    //Regulador velocidad
+    accion_control = regulador->calculaAccionControl(regulador->get_consigna(), vel_rpm, 0, 1023);
+
     pwmWrite(PWM, accion_control);
-
-
-
 
 
     int t_nuevo = regulador->get_T();
     if (T_actual != t_nuevo)
     {
         T_actual = t_nuevo;
-        timer->start(T_actual);
-    }
+        //timer->start(T_actual);
+        timer->setInterval(t_nuevo);   }
 }

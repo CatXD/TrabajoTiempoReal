@@ -52,6 +52,6 @@ void Timer_ControlVel::timerSlot_vel()
     if (T_actual != t_nuevo)
     {
         T_actual = t_nuevo;
-        timer->start(T_actual);
+        timer->setInterval(T_actual);
     }
 }
