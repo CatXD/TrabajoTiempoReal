@@ -34,13 +34,21 @@ void Timer_ControlPos::stop()
 
 void Timer_ControlPos::timerSlot_pos()
 {
+    int pos_act_raw;
+    double pos_grados, accion_control;
 
-    //Aqui control de posicion
     //Leo entradas
+    pos_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_POT);
 
     //recta de calibracion
+    pos_grados = 360.0 / 1023.0 * (pos_act_raw - 512);
 
-    //
+    //Regulador
+    accion_control = regulador->calculaAccionControl(regulador->get_consigna(), pos_grados, 0, 1023);
+
+
+    printf("Pos grados: %f, U Pos= %f\n",pos_grados, accion_control);
+    pwmWrite(PWM, accion_control);
 
 
 
