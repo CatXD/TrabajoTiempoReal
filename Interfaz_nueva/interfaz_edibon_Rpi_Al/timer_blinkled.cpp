@@ -9,7 +9,7 @@ void Timer_BlinkLED::Init ()
     timer = new QTimer(this);
     // setup signal and slot
     connect(timer, SIGNAL(timeout()),
-          this, SLOT(MyTimerSlot()));
+          this, SLOT(Blink_LED_stop()));
 
 
 }
@@ -31,6 +31,7 @@ void Timer_BlinkLED::Blink_LED_stop()
 
 void Timer_BlinkLED::Blink_LED_exec()
 {
+
     estado = !estado;
     digitalWrite(LED, estado);
 }

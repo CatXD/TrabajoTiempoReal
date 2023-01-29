@@ -15,10 +15,7 @@ protected:
 public:
     //Timer_ControlPos();
     void Init (Regulador * reg);
-
     QTimer *timer;
-
-
     int T_actual;
 
 

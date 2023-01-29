@@ -71,8 +71,8 @@ int main(int argc, char *argv[])
     pullUpDnControl(REANUDAR,PUD_UP);
 
     //CONFIGURACION DE LAS ISRS
-    wiringPiISR (PARAR, INT_EDGE_FALLING, FuncionParar);
-    wiringPiISR (REANUDAR, INT_EDGE_FALLING,  FuncionReanudar);
+    wiringPiISR (PARAR, INT_EDGE_FALLING, &FuncionParar);
+    wiringPiISR (REANUDAR, INT_EDGE_FALLING,  &FuncionReanudar);
 
 
     ControladorMotor controlador;

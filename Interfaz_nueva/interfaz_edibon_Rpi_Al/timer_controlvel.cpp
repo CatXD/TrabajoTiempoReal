@@ -9,7 +9,7 @@ void Timer_ControlVel::Init (Regulador * reg)
     timer = new QTimer(this);
     // setup signal and slot
     connect(timer, SIGNAL(timeout()),
-          this, SLOT(MyTimerSlot()));
+          this, SLOT(timerSlot_vel()));
 
     regulador = reg;
 }
@@ -27,7 +27,7 @@ void Timer_ControlVel::stop()
 }
 
 
-void Timer_ControlVel::MyTimerSlot()
+void Timer_ControlVel::timerSlot_vel()
 {
     //Aqui control de posicion
     //Leo entradas

@@ -13,7 +13,7 @@ void Timer_ControlPos::Init (Regulador * reg)
     timer = new QTimer(this);
     // setup signal and slot
     connect(timer, SIGNAL(timeout()),
-          this, SLOT(MyTimerSlot()));
+          this, SLOT(timerSlot_pos()));
 
     regulador = reg;
 }

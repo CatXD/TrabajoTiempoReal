@@ -29,19 +29,19 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
 
 
     //connect(Control_Pos,SIGNAL(entered()),this,SLOT(FuncionControlPos()));
-    connect(Control_Pos,SIGNAL(entered()),&motor->timer_pos,SLOT(motor->timer_pos.start()));
-    connect(Control_Pos,SIGNAL(exited()),&motor->timer_pos,SLOT(motor->timer_pos.stop()));
-    connect(motor->timer_pos.timer,SIGNAL(timeout()), &motor->timer_pos,  SLOT(motor->timer_pos.timerSlot_pos()));
+    connect(Control_Pos,SIGNAL(entered()),&motor->timer_pos,SLOT(start()));
+    connect(Control_Pos,SIGNAL(exited()),&motor->timer_pos,SLOT(stop()));
+    connect(motor->timer_pos.timer,SIGNAL(timeout()), &motor->timer_pos,  SLOT(timerSlot_pos()));
 
     //connect(Control_Vel,SIGNAL(entered()),this,SLOT(FuncionControlVel()));
-    connect(Control_Vel,SIGNAL(entered()),&motor->timer_vel,SLOT(motor->timer_vel.start()));
-    connect(Control_Vel,SIGNAL(exited()),&motor->timer_vel,SLOT(motor->timer_vel.stop()));
-    connect(motor->timer_vel.timer,SIGNAL(timeout()), &motor->timer_vel,  SLOT(motor->timer_vel.timerSlot_vel()));
+    connect(Control_Vel,SIGNAL(entered()),&motor->timer_vel,SLOT(start()));
+    connect(Control_Vel,SIGNAL(exited()),&motor->timer_vel,SLOT(stop()));
+    connect(motor->timer_vel.timer,SIGNAL(timeout()), &motor->timer_vel,  SLOT(timerSlot_vel()));
 
     //connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
-    connect(OFF,SIGNAL(entered()),&motor->timer_blinked,SLOT(motor->timer_blinked.Blink_LED_start()));
-    connect(OFF,SIGNAL(exited()),&motor->timer_blinked,SLOT(motor->timer_blinked.Blink_LED_stop()));
-    connect(motor->timer_blinked.timer,SIGNAL(timeout()), &motor->timer_blinked,  SLOT(motor->timer_blinked.Blink_LED_exec()) );
+    connect(OFF,SIGNAL(entered()),&motor->timer_blinked,SLOT(Blink_LED_start()));
+    connect(OFF,SIGNAL(exited()),&motor->timer_blinked,SLOT(Blink_LED_stop()));
+    connect(motor->timer_blinked.timer,SIGNAL(timeout()), &motor->timer_blinked,  SLOT(Blink_LED_exec()) );
     //esto creo que lo podríamos hacer en la ISR del main
     //*****   
     //connect(Estado_Final,SIGNAL(entered()),this,SLOT(ApagarPinesRPI()));

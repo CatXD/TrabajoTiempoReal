@@ -17,15 +17,12 @@ public:
 
     void Init(Regulador * reg);
     QTimer *timer;
-
-
     int T_actual;
 
+public slots:
+    void timerSlot_vel();
     void start();
     void stop();
-
-public slots:
-    void MyTimerSlot();
 };
 
 #endif // MYTIMER_H
