@@ -9,6 +9,7 @@
 
 void Timer_ControlPos::Init (Regulador * reg)
 {
+
     // create a timer
     timer = new QTimer(this);
     // setup signal and slot
@@ -33,12 +34,16 @@ void Timer_ControlPos::stop()
 
 void Timer_ControlPos::timerSlot_pos()
 {
+
     //Aqui control de posicion
     //Leo entradas
 
     //recta de calibracion
 
     //
+
+
+
 
 
     int t_nuevo = regulador->get_T();

@@ -1,9 +1,10 @@
 #ifndef TIMER_CONTROLPOS
 #define TIMER_CONTROLPOS
 #include "regulador.h"
-
+#include "definicion_pines.h"
+#include "recta.h"
 #include <QTimer>
-
+#include "valores_iniciales.h"
 class Timer_ControlPos : public QObject
 {
     Q_OBJECT
@@ -11,6 +12,7 @@ class Timer_ControlPos : public QObject
 protected:
     int periodo;
     Regulador * regulador;
+    Recta Ref_To_Grados{PEND_REFTOGRADOS,ORD_ORIGEN_REFTOGRADOS};
 
 public:
     //Timer_ControlPos();

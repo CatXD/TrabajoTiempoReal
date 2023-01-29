@@ -42,7 +42,7 @@ public:
     double get_uk(void);
     double get_y(void);
 
-    double calculaAccionControl (double consigna, double y_medida);
+    double calculaAccionControl (double consigna, double y_medida, double lim_izq, double lim_der);
 };
 
 #endif // REGULADOR_H

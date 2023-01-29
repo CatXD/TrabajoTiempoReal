@@ -4,10 +4,25 @@
 #include <pthread.h>
 #include "valores_iniciales.h"
 #include "definicion_pines.h"
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 SM_trabajo * _machine_ptr;
 Interfaz * _interfaz;
+
+void spiSetup (int spiChannel)
+{
+    int valor;
+    valor = wiringPiSPISetup (spiChannel, 10000);
+    if ( valor< 0)
+    {
+        fprintf (stderr, "Can't open the SPI bus: %s\n", strerror (errno)) ;
+        exit (EXIT_FAILURE) ;
+    }
+}
+
 
 //void * generaSierra(void *param) {
 //    Interfaz * dibu= static_cast < Interfaz * > (param);
@@ -62,9 +77,13 @@ void FuncionReanudar(){
 int main(int argc, char *argv[])
 {
     wiringPiSetupGpio();
+
+    //SPI
+    spiSetup(SPICHANNEL);
+
     //CONFIGURACION DE PINES
     pinMode(LED, OUTPUT);
-    //pinMode(PWM, PWM_OUTPUT);
+    pinMode(PWM, PWM_OUTPUT);
     pinMode(PARAR, INPUT);
     pinMode(REANUDAR, INPUT);
     pullUpDnControl(PARAR,PUD_UP);

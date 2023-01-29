@@ -91,7 +91,7 @@ double Regulador::get_y()
     return valor;
 }
 
-double Regulador::calculaAccionControl (double consigna, double y_medida)
+double Regulador::calculaAccionControl (double consigna, double y_medida, double lim_izq, double lim_der)
 {
     double D, P, U, error;
 
@@ -102,6 +102,11 @@ double Regulador::calculaAccionControl (double consigna, double y_medida)
     I = I + error * KI;
     D = (error - error_ans)* KD / T;
     U = P + I + D;
+
+    if (U < lim_izq)
+        U = lim_izq;
+    if (U >lim_der)
+        U = lim_der;
 
     uk = U;
     y_actual = y_medida;

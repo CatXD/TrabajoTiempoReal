@@ -130,11 +130,11 @@ void Interfaz::onTimeout(void){
     t= t + Tms /1000.0;
     cout<< "el tiempo es "<< t<< endl;
     if ( modo_control_ == MODO_CONTROL_VEL){
-        muestraDatoSlot(t,controlador->reg_vel.get_consigna(), controlador->reg_vel.get_uk(),
+        muestraDatoSlot(t,controlador->reg_vel.get_consigna(), controlador->reg_vel.get_uk()/20,
                         controlador->reg_vel.get_y());
     }
     else{
-        muestraDatoSlot(t,controlador->reg_pos.get_consigna(), controlador->reg_pos.get_uk(),
+        muestraDatoSlot(t,controlador->reg_pos.get_consigna(), controlador->reg_pos.get_uk()/20,
                         controlador->reg_pos.get_y());
     }
 }

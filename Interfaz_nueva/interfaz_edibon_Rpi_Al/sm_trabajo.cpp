@@ -31,12 +31,12 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     //connect(Control_Pos,SIGNAL(entered()),this,SLOT(FuncionControlPos()));
     connect(Control_Pos,SIGNAL(entered()),&motor->timer_pos,SLOT(start()));
     connect(Control_Pos,SIGNAL(exited()),&motor->timer_pos,SLOT(stop()));
-    connect(motor->timer_pos.timer,SIGNAL(timeout()), &motor->timer_pos,  SLOT(timerSlot_pos()));
+    //connect(motor->timer_pos.timer,SIGNAL(timeout()), &motor->timer_pos,  SLOT(timerSlot_pos()));
 
     //connect(Control_Vel,SIGNAL(entered()),this,SLOT(FuncionControlVel()));
     connect(Control_Vel,SIGNAL(entered()),&motor->timer_vel,SLOT(start()));
     connect(Control_Vel,SIGNAL(exited()),&motor->timer_vel,SLOT(stop()));
-    connect(motor->timer_vel.timer,SIGNAL(timeout()), &motor->timer_vel,  SLOT(timerSlot_vel()));
+    //connect(motor->timer_vel.timer,SIGNAL(timeout()), &motor->timer_vel,  SLOT(timerSlot_vel()));
 
     //connect(OFF,SIGNAL(entered()),this,SLOT(ParpadeoLED()));
     connect(OFF,SIGNAL(entered()),&motor->timer_blinked,SLOT(Blink_LED_start()));

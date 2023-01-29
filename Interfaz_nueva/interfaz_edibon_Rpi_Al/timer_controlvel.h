@@ -1,9 +1,11 @@
-
 #ifndef TIMER_CONTROLVEL
 #define TIMER_CONTROLVEL
 
+#include "definicion_pines.h"
 #include "regulador.h"
 #include <QTimer>
+#include "recta3trozos.h"
+#include "valores_iniciales.h"
 
 class Timer_ControlVel : public QObject
 {
@@ -12,6 +14,7 @@ class Timer_ControlVel : public QObject
 protected:
     int periodo;
     Regulador * regulador;
+    Recta3Trozos VELADC_TO_RPM   ;
 
 public:
 
