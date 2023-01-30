@@ -199,9 +199,9 @@ void Interfaz::on_botonSetReferencia_clicked()  //A  RELLENAR
     if (modo_control_ == MODO_CONTROL_VEL ) {
         controlador->reg_vel.set_consigna(ui->dialRefVelPos->value());
     }
-    else {
-        controlador->reg_pos.set_consigna(ui->dialRefVelPos->value());
-    }
+//    else {
+//        controlador->reg_pos.set_consigna(ui->dialRefVelPos->value());
+//    }
 }
 
 void Interfaz::on_botonSetParametros_clicked()   //A RELLENAR

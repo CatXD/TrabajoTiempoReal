@@ -38,8 +38,8 @@ void Timer_ControlPos::stop()
 
 void Timer_ControlPos::timerSlot_pos()
 {
-    int pos_act_raw;
-    double pos_grados, vel_ref;
+    int pos_act_raw, pos_ref_raw;
+    double pos_grados, vel_ref, pos_ref_grados;
 
     contador--;
 
@@ -48,9 +48,12 @@ void Timer_ControlPos::timerSlot_pos()
 
     //Leo entradas
     pos_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_POT);
+    pos_ref_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF) / 21;
 
     //recta de calibracion
     pos_grados = 360.0 / 1023.0 * (pos_act_raw - 512);
+    pos_ref_grados = Ref_To_Grados.calcularY(pos_ref_raw);
+    regulador->set_consigna (pos_ref_grados);
 
     //Regulador
     vel_ref = regulador->calculaAccionControl(regulador->get_consigna(), pos_grados, -45, 45);

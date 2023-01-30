@@ -9,10 +9,10 @@
 
 using namespace std;
 
-#define PWM 13 //23
-#define PARAR 17 //0
-#define REANUDAR 27 //2
-#define LED 22 //3
+#define PWM 23 //13 //
+#define PARAR 0 //17 //
+#define REANUDAR 2 //27 //
+#define LED 3 //22 //
 
 #define CHAN_CONFIG_SINGLE   8   //setup channel 0 as Single-ended input
 #define SPICHANNEL           0   //MCP3008 connect to SPI0
@@ -43,10 +43,10 @@ int myAnalogRead(int spiChannel,int channelConfig,int analogChannel)
 
 int main()
 {
-    int pos, ref;
+    int pos, ref, ref1, ref2, ref3;
     string vacio;
     int led_estado = 1;
-    wiringPiSetupGpio();
+    wiringPiSetup();
     spiSetup(SPICHANNEL);
 
     pinMode (PWM, PWM_OUTPUT);
@@ -63,8 +63,10 @@ int main()
     for (pos = -10; pos <= 11; pos ++)
     {
 
-        ref = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
-
+        ref1 = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
+        ref2 = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
+        ref3 = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
+        ref = (ref1 + ref2 + ref3 )/3;
         cout << pos <<","<<ref;
 
         led_estado = !led_estado;

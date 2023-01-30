@@ -76,7 +76,7 @@ void FuncionReanudar(){
 
 int main(int argc, char *argv[])
 {
-    wiringPiSetupGpio();
+    wiringPiSetup();
 
     //SPI
     spiSetup(SPICHANNEL);

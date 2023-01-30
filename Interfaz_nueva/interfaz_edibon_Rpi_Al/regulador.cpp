@@ -27,6 +27,7 @@ double Regulador::get_KP(void){
 void Regulador::set_KI(double KI){
     pthread_mutex_lock(&mutex);
     this->KI=KI;
+    I = 0;
     pthread_mutex_unlock(&mutex);
 }
 double Regulador::get_KI(void){
@@ -39,6 +40,7 @@ double Regulador::get_KI(void){
 void Regulador::set_KD(double KD){
     pthread_mutex_lock(&mutex);
     this->KD=KD;
+    error_ans = 0;
     pthread_mutex_unlock(&mutex);
 }
 double Regulador::get_KD(void){
@@ -51,6 +53,8 @@ double Regulador::get_KD(void){
 void Regulador::set_T(int T){
     pthread_mutex_lock(&mutex);
     this->T=T;
+    I = 0;
+    error_ans = 0;
     pthread_mutex_unlock(&mutex);
 }
 int Regulador::get_T(void){

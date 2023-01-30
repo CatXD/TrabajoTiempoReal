@@ -6,10 +6,10 @@
 #include <string.h>
 
 
-#define PWM 13 //23
-#define PARAR 17 //0
-#define REANUDAR 27 //2
-#define LED 22 //3
+#define PWM 23 //13
+#define PARAR 0 //17
+#define REANUDAR 2 // 27
+#define LED 3 // 22
 
 #define CHAN_CONFIG_SINGLE   8   //setup channel 0 as Single-ended input
 #define SPICHANNEL           0   //MCP3008 connect to SPI0
