@@ -64,12 +64,10 @@ void spiSetup (int spiChannel)
 //    }
 //}
 void FuncionParar(){
-    _interfaz->ui->ptLog->appendPlainText("Diego guarro");
     emit _machine_ptr->PARAR_signal();
 
 }
 void FuncionReanudar(){
-    _interfaz->ui->ptLog->appendPlainText("Diego guarro");
     emit _machine_ptr->REANUDAR_signal();
 }
 
@@ -86,8 +84,9 @@ int main(int argc, char *argv[])
     pinMode(PWM, PWM_OUTPUT);
     pinMode(PARAR, INPUT);
     pinMode(REANUDAR, INPUT);
-    pullUpDnControl(PARAR,PUD_UP);
-    pullUpDnControl(REANUDAR,PUD_UP);
+//    pullUpDnControl(PARAR,PUD_UP);
+//    pullUpDnControl(REANUDAR,PUD_UP);
+    digitalWrite(LED,0);
 
     //CONFIGURACION DE LAS ISRS
     wiringPiISR (PARAR, INT_EDGE_FALLING, &FuncionParar);

@@ -35,49 +35,28 @@ void Timer_ControlPos::stop()
     timer->stop();
 }
 
-
 void Timer_ControlPos::timerSlot_pos()
 {
-    int pos_act_raw, pos_ref_raw;
+    int pos_act_raw, pos_ref_raw, accion_control;
     double pos_grados, vel_ref, pos_ref_grados;
 
-    contador--;
-
-    if (contador <= 0)
-    {
 
     //Leo entradas
     pos_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_POT);
-    pos_ref_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF) / 21;
+    pos_ref_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
 
     //recta de calibracion
     pos_grados = 360.0 / 1023.0 * (pos_act_raw - 512);
-    pos_ref_grados = Ref_To_Grados.calcularY(pos_ref_raw);
+    pos_ref_grados = -Ref_To_Grados.calcularY(pos_ref_raw);
     regulador->set_consigna (pos_ref_grados);
 
     //Regulador
-    vel_ref = regulador->calculaAccionControl(regulador->get_consigna(), pos_grados, -45, 45);
-    regulador_vel->set_consigna(vel_ref);
-
-    printf("Consigna grados: %f, Pos grados: %f, Vel ref: %f\n", regulador->get_consigna(), pos_grados, regulador_vel->get_consigna());
-
-    contador = 10;
-    }
+    accion_control = (int) regulador->calculaAccionControl(pos_ref_grados, pos_grados, 0, 1023);
 
 
-    // Regulador de velocidad
+    printf("Consigna grados: %f, Pos grados: %f, u: %d\n", regulador->get_consigna(), pos_grados, accion_control);
 
-    int vel_act_raw;
-    double vel_rpm, accion_control;
 
-    //Leo entradas velocidad
-    vel_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
-
-    //recta de calibracion
-    vel_rpm = VELADC_TO_RPM.GetValue(vel_act_raw);
-
-    //Regulador velocidad
-    accion_control = regulador->calculaAccionControl(regulador->get_consigna(), vel_rpm, 0, 1023);
 
     pwmWrite(PWM, accion_control);
 
@@ -89,3 +68,58 @@ void Timer_ControlPos::timerSlot_pos()
         //timer->start(T_actual);
         timer->setInterval(t_nuevo);   }
 }
+
+
+//void Timer_ControlPos::timerSlot_pos()
+//{
+//    int pos_act_raw, pos_ref_raw;
+//    double pos_grados, vel_ref, pos_ref_grados;
+
+//    contador--;
+
+//    if (contador <= 0)
+//    {
+
+//    //Leo entradas
+//    pos_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_POT);
+//    pos_ref_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_REF);
+
+//    //recta de calibracion
+//    pos_grados = 360.0 / 1023.0 * (pos_act_raw - 512);
+//    pos_ref_grados = Ref_To_Grados.calcularY(pos_ref_raw);
+//    regulador->set_consigna (pos_ref_grados);
+
+//    //Regulador
+//    vel_ref = regulador->calculaAccionControl(regulador->get_consigna(), pos_grados, -45, 45);
+//    regulador_vel->set_consigna(vel_ref);
+
+//    printf("Consigna grados: %f, Pos grados: %f, Vel ref: %f\n", regulador->get_consigna(), pos_grados, regulador_vel->get_consigna());
+
+//    contador = 10;
+//    }
+
+
+//    // Regulador de velocidad
+
+//    int vel_act_raw;
+//    double vel_rpm, accion_control;
+
+//    //Leo entradas velocidad
+//    vel_act_raw = myAnalogRead(SPICHANNEL,CHAN_CONFIG_SINGLE,ANALCHANNEL_VEL);
+
+//    //recta de calibracion
+//    vel_rpm = VELADC_TO_RPM.GetValue(vel_act_raw);
+
+//    //Regulador velocidad
+//    accion_control = regulador->calculaAccionControl(regulador->get_consigna(), vel_rpm, 0, 1023);
+
+//    pwmWrite(PWM, accion_control);
+
+
+//    int t_nuevo = regulador->get_T();
+//    if (T_actual != t_nuevo)
+//    {
+//        T_actual = t_nuevo;
+//        //timer->start(T_actual);
+//        timer->setInterval(t_nuevo);   }
+//}

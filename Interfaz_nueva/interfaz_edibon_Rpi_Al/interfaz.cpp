@@ -180,16 +180,20 @@ void Interfaz::repaintPlot(double tiempo, double ref, double u, double y)
 
 void Interfaz::on_botonParar_clicked()   //A  RELLENAR
 {
-    ui->ptLog->appendPlainText("El sistema se encuentra parado haciendo parpadear un LED");
+    ui->ptLog->appendPlainText("- El sistema se encuentra parado haciendo parpadear un LED");
 }
 
 void Interfaz::on_botonReanudar_clicked()  //A  RELLENAR
 {
-    ui->ptLog->appendPlainText("Se reanuda el control previo");
+    ui->ptLog->appendPlainText("- Se reanuda el control previo");
 }
 
 void Interfaz::on_botonFinalizar_clicked()
 {
+    pwmWrite(PWM,512);
+    digitalWrite(LED,0);
+    pinMode(PWM,INPUT);
+    pinMode(LED,INPUT);
     exit(0);
 }
 
@@ -197,7 +201,10 @@ void Interfaz::on_botonFinalizar_clicked()
 void Interfaz::on_botonSetReferencia_clicked()  //A  RELLENAR
 {
     if (modo_control_ == MODO_CONTROL_VEL ) {
+        ui->ptLog->clear();
         controlador->reg_vel.set_consigna(ui->dialRefVelPos->value());
+        QString mens = "- REF (Control de velocidad) = " + QString::number(ui->dialRefVelPos->value());
+        ui->ptLog->appendPlainText(mens);
     }
 //    else {
 //        controlador->reg_pos.set_consigna(ui->dialRefVelPos->value());
@@ -251,13 +258,15 @@ void Interfaz::on_dPosicion_valueChanged(int value)
 void Interfaz::on_bSetPeriodo_clicked()
 {
     if (modo_control_ == MODO_CONTROL_VEL ) {
+        ui->ptLog->clear();
         controlador->reg_vel.set_T(ui->sbRepaintInterval->value());
-        QString mens = "El nuevo Tm (Control de velocidad) es de " + QString::number(ui->sbRepaintInterval->value());
+        QString mens = "- El nuevo Tm (Control de velocidad) es de " + QString::number(ui->sbRepaintInterval->value());
         ui->ptLog->appendPlainText(mens);
     }
     else {
+        ui->ptLog->clear();
         controlador->reg_pos.set_T(ui->sbRepaintInterval->value());
-        QString mens = "El nuevo Tm (Control de posicion) es de " + QString::number(ui->sbRepaintInterval->value());
+        QString mens = "- El nuevo Tm (Control de posicion) es de " + QString::number(ui->sbRepaintInterval->value());
         ui->ptLog->appendPlainText(mens);
     }
 }

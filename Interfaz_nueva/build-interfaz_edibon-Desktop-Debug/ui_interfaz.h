@@ -403,7 +403,7 @@ public:
         sbRepaintInterval->setDecimals(0);
         sbRepaintInterval->setMinimum(10);
         sbRepaintInterval->setMaximum(10000);
-        sbRepaintInterval->setValue(500);
+        sbRepaintInterval->setValue(50);
 
         horizontalLayout_6->addWidget(sbRepaintInterval);
 

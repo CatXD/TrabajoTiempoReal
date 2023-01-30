@@ -13,6 +13,7 @@
 #include "qcustomplot.h"
 #include "valores_iniciales.h"
 #include "controladormotor.h"
+#include "definicion_pines.h"
 
 
 

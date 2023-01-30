@@ -21,6 +21,7 @@ void Timer_BlinkLED::Blink_LED_start()
     //estado = true;
     timer->start(periodo);
     digitalWrite(LED, estado);
+    pwmWrite(PWM,512);
 }
 
 void Timer_BlinkLED::Blink_LED_stop()

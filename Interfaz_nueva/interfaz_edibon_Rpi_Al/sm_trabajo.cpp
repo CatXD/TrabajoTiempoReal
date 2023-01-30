@@ -14,14 +14,15 @@ SM_trabajo::SM_trabajo(Interfaz *wpt, QObject *parent)    : QObject(parent)
     Control_Vel=new QState(ON);
     OFF=new QState(MachineControl);
     ONh=new QHistoryState(ON);
+    ONh->setHistoryType(QHistoryState::DeepHistory);
     Estado_Final = new QFinalState(MachineControl);
     motor = w->getControlMotor();////////////////////////////////
 
     //transicciones
     ON->addTransition(w->ui->botonParar,SIGNAL(clicked()),OFF);
     ON->addTransition(this,SIGNAL(PARAR_signal()),OFF);
-    OFF->addTransition(w->ui->botonReanudar,SIGNAL(clicked()),ON);
-    OFF->addTransition(this,SIGNAL(REANUDAR_signal()),ON);
+    OFF->addTransition(w->ui->botonReanudar,SIGNAL(clicked()),ONh);
+    OFF->addTransition(this,SIGNAL(REANUDAR_signal()),ONh);
     ON->addTransition(w->ui->botonFinalizar,SIGNAL(clicked()),Estado_Final);
     OFF->addTransition(w->ui->botonFinalizar,SIGNAL(clicked()),Estado_Final);
     Control_Pos->addTransition(w->ui->toggleModoControl,SIGNAL(clicked()),Control_Vel);
